@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,7 +21,8 @@ import com.zzstar.maoyan.utils.NetworkUtil;
 import okhttp3.Call;
 
 public class SplashActivity extends Activity {
-    ImageView cover_advertise;
+    ImageView cover;
+    ImageView advertise;
     private FirstAdvertise firstAdvertise;
     private FirstAdvertise.PostersBean postersBean;
     private Handler handler = new Handler() {
@@ -32,15 +34,18 @@ public class SplashActivity extends Activity {
                     finish();
                     break;
                 case 1:
-                    if (isConnected) {
-                        showAdvertise();
-                    }
+                    advertise.setVisibility(View.VISIBLE);
+                    cover.setVisibility(View.GONE);
+                    handler.sendEmptyMessageDelayed(0,duringTime) ;
+
                     break;
+
 
             }
         }
     };
-    private boolean isConnected = false;
+    private int duringTime;
+
 
     private void gotoMainActivity() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -51,7 +56,8 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        cover_advertise = (ImageView) findViewById(R.id.cover_advertise);
+        cover = (ImageView) findViewById(R.id.cover);
+        advertise= (ImageView) findViewById(R.id.advertise);
         showCover();
         checkInfo();
     }
@@ -66,15 +72,14 @@ public class SplashActivity extends Activity {
                     .build()
                     .execute(new MyStringCallback());
 
-            isConnected = true;
+
         } else {
-            isConnected = false;
+            return;
         }
     }
 
     private void showCover() {
-        cover_advertise.setImageResource(R.drawable.splash);
-        handler.sendEmptyMessageDelayed(1, 1000);
+        handler.sendEmptyMessageDelayed(0, 4000);
 
     }
 
@@ -105,15 +110,25 @@ public class SplashActivity extends Activity {
 
     private void processData(String response) {
         firstAdvertise = JSON.parseObject(response, FirstAdvertise.class);
-
+        showAdvertise();
     }
 
     private void showAdvertise() {
-        postersBean = firstAdvertise.getPosters().get(0);
-        Picasso.with(this).load(postersBean.getPic()).into(cover_advertise);
-        int duringTime = postersBean.getDuration();
-        handler.sendEmptyMessageDelayed(0, duringTime);
 
+        postersBean = firstAdvertise.getPosters().get(0);
+        Picasso.with(this).load(postersBean.getPic()).into(advertise);
+        duringTime = postersBean.getDuration();
+        handler.removeMessages(0);
+        handler.sendEmptyMessageDelayed(1,2000);
+
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+       handler.removeMessages(0);
 
     }
 }

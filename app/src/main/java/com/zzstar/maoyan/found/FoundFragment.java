@@ -1,6 +1,8 @@
 package com.zzstar.maoyan.found;
 
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zzstar.maoyan.base.BaseFragment;
 
@@ -11,6 +13,9 @@ import com.zzstar.maoyan.base.BaseFragment;
 public class FoundFragment extends BaseFragment {
     @Override
     public View initView() {
-        return null;
+        TextView textView = new TextView(context);
+        textView.setText("FoundFragment");
+        textView.setGravity(Gravity.CENTER);
+        return textView;
     }
 }
