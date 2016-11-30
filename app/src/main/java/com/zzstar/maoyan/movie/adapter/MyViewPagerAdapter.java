@@ -2,10 +2,10 @@ package com.zzstar.maoyan.movie.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.zzstar.maoyan.R;
 
 /**
  * Created by zzstar on 2016/11/30.
@@ -31,14 +31,10 @@ private Context context;
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        TextView textView = new TextView(context);
-        textView.setText("Pager  1 ");
-        textView.setTextSize(40);
-        textView.setGravity(Gravity.CENTER);
+        View view = View.inflate(context, R.layout.page1_view, null);
 
-        container.addView(textView);
 
-        return textView;
+        return view;
     }
 
     @Override
