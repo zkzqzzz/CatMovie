@@ -30,4 +30,6 @@ dependencies {
     compile project(':okhttputils')
     compile project(':FlycoTabLayout_Lib')
     compile project(':MaterialRefreshLayout_library')
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
 }

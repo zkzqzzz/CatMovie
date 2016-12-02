@@ -50,7 +50,8 @@ public class FirstFragment extends BaseFragment {
           @Override
           public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
               initData();
-              Toast.makeText(context, "加载更多", Toast.LENGTH_SHORT).show();
+
+
           }
       });
 
@@ -83,8 +84,8 @@ public class FirstFragment extends BaseFragment {
     private class MyStringCallback extends StringCallback {
 
         @Override
-        public void onError(Call call, Exception e, int id) {
-
+        public void onError(Call call, Exception e, int i) {
+            materialRefreshLayout.finishRefresh();
         }
 
         @Override

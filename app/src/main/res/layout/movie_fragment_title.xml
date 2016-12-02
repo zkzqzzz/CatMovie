@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="49dp"
+    android:background="@color/red"
+    tools:showIn="@layout/page1_view">
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginTop="6dp"
+        android:id="@+id/et_search"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape"
+        android:clickable="true"
+        android:drawablePadding="5dp"
+        android:hint="全网搜索"
+        android:textSize="18sp" />
+</RelativeLayout>

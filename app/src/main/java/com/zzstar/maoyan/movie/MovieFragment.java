@@ -25,7 +25,7 @@ public class MovieFragment extends BaseFragment {
     private ViewPager vp;
     private ViewPagerIndicator indicator;
     private FragmentPagerAdapter mAdapter;
-    private int itemCount = 3;
+
 
     @Override
     public View initView() {

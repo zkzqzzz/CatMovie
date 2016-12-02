@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+
+        android:id="@+id/head_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12月3日"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:padding="5dp"
+        android:id="@+id/iv_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head_text"
+        android:background="@drawable/background02" />
+    <ImageView
+        android:padding="5dp"
+
+        android:id="@+id/iv_care"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head_text"
+        android:background="@drawable/xihuan_cang" />
+
+    <TextView
+        android:padding="5dp"
+
+        android:id="@+id/below_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_mid"
+        android:text="12月3日"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/below_text_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/below_text"
+        android:text="好几个人想看"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp" />
+</RelativeLayout>

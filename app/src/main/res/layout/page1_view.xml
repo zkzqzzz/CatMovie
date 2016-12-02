@@ -4,24 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:background="@color/red">
 
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="300dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/shape"
-            android:clickable="true"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:hint="全网搜索"
-            android:textSize="18sp" />
-    </LinearLayout>
+    <include layout="@layout/movie_fragment_title" />
+
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
