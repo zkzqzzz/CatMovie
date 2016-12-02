@@ -46,16 +46,12 @@ public class FirstFragment extends BaseFragment {
         View headview = View.inflate(context, R.layout.page1_view, null);
         banner = (Banner) headview.findViewById(R.id.banner);
         lv_first.addHeaderView(headview);
-      materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-          @Override
-          public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-              initData();
-
-
-          }
-      });
-
-
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                initData();
+            }
+        });
         return view;
     }
 

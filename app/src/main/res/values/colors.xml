@@ -10,4 +10,5 @@
     <color name="font_red">#D64948</color>
     <color name="font_white">#FFFFFF</color>
     <color name="yelow">#ffb400</color>
+    <color name="grey">#eeeeee</color>
 </resources>
