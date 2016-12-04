@@ -18,9 +18,9 @@ import java.util.List;
  * Created by zzstar on 2016/11/30.
  */
 public class MyListViewAdapter extends BaseAdapter {
-    private Context context;
-    ListViewBean listViewBean;
     private final List<ListViewBean.DataBean.MoviesBean> movies;
+    ListViewBean listViewBean;
+    private Context context;
 
     public MyListViewAdapter(Context context, ListViewBean listViewBean) {
         this.context = context;
@@ -30,7 +30,7 @@ public class MyListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return movies.size();
+        return movies.size() + 1;
     }
 
     @Override
@@ -45,12 +45,16 @@ public class MyListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ListViewBean.DataBean.MoviesBean moviesBean;
+
+        if (position != 0 && position != 1) {
+            moviesBean = movies.get(position - 1);
+        } else {
+            moviesBean = movies.get(position);
+        }
         if (getItemViewType(position) == 1) {
             convertView = View.inflate(context, R.layout.item_list2, null);
-
-
         } else {
-
 
             ViewHolder viewHolder;
             if (convertView == null) {
@@ -61,7 +65,7 @@ public class MyListViewAdapter extends BaseAdapter {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            if (movies.get(position).getPreSale() == 1) {
+            if (moviesBean.getPreSale() == 1) {
                 viewHolder.buy_ticket.setText("预售");
                 viewHolder.buy_ticket.setTextColor(Color.rgb(63, 81, 181));
 
@@ -70,13 +74,27 @@ public class MyListViewAdapter extends BaseAdapter {
 
             }
 
-            viewHolder.sc.setText(movies.get(position).getSc() + "");
-            viewHolder.movie_name.setText(movies.get(position).getNm());
-            viewHolder.movie_descript.setText(movies.get(position).getScm());
-            viewHolder.show_info.setText(movies.get(position).getShowInfo());
-            Picasso.with(context).load(movies.get(position).getImg()).into(viewHolder.iv_move_head);
+            viewHolder.sc.setText(moviesBean.getSc() + "");
+            viewHolder.movie_name.setText(moviesBean.getNm());
+            viewHolder.movie_descript.setText(moviesBean.getScm());
+            viewHolder.show_info.setText(moviesBean.getShowInfo());
+            Picasso.with(context).load(moviesBean.getImg()).into(viewHolder.iv_move_head);
         }
         return convertView;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     class ViewHolder {
@@ -96,21 +114,6 @@ public class MyListViewAdapter extends BaseAdapter {
             buy_ticket = (TextView) convertView.findViewById(R.id.buy_ticket);
             sc = (TextView) convertView.findViewById(R.id.sc);
 
-        }
-    }
-
-
-    @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 1) {
-            return 1;
-        } else {
-            return 0;
         }
     }
 }

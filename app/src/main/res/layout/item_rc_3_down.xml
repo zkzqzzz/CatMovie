@@ -5,26 +5,29 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/title_jiang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="欧洲电影奖"
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="12-20"
+        android:text="--------12-20------"
 
         />
 
     <ImageView
+        android:id="@+id/iv_movie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:background="@drawable/background02" />
 
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

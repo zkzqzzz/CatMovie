@@ -1,10 +1,12 @@
 package com.zzstar.maoyan.movie.view.fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zzstar.maoyan.R;
@@ -20,25 +22,31 @@ import okhttp3.Call;
  */
 public class SecondFragment extends BaseFragment {
 
-   private RecyclerView rc_view;
+    private RecyclerView rc_view;
     private MovieHotBean movieHotBean;
     private View view;
-    private SwipeRefreshLayout swiperefreshlayout;
+    //private SwipeRefreshLayout swiperefreshlayout;
+    private MaterialRefreshLayout refresh;
 
     @Override
     public View initView() {
         view = View.inflate(context, R.layout.second_fragment_hot, null);
         rc_view = (RecyclerView) view.findViewById(R.id.rc_view);
-        swiperefreshlayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefreshlayout);
-        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
+//        swiperefreshlayout = (SwipeRefreshLayout) view.findViewById(swiperefreshlayout);
+//        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                initData();
+//
+//            }
+//        });
+        refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
-            public void onRefresh() {
-
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 initData();
-
             }
         });
-
 
         return view;
     }
@@ -53,6 +61,11 @@ public class SecondFragment extends BaseFragment {
                 .execute(new MyStringCallback());
     }
 
+    private void processData(String response) {
+        movieHotBean = JSON.parseObject(response, MovieHotBean.class);
+
+    }
+
     private class MyStringCallback extends StringCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -61,18 +74,14 @@ public class SecondFragment extends BaseFragment {
 
         @Override
         public void onResponse(String response, int id) {
-            swiperefreshlayout.setRefreshing(false);
+            refresh.finishRefresh();
+            // swiperefreshlayout.setRefreshing(false);
             processData(response);
-            MyRecyclerViewAdapter adapter= new MyRecyclerViewAdapter(context,movieHotBean);
-            LinearLayoutManager manager=new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+            MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(context, movieHotBean);
+            LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             rc_view.setLayoutManager(manager);
             rc_view.setAdapter(adapter);
 
         }
-    }
-
-    private void processData(String response) {
-        movieHotBean = JSON.parseObject(response, MovieHotBean.class);
-
     }
 }

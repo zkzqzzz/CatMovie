@@ -1,21 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefreshlayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scrollbars="vertical"
-        >
+    android:layout_height="wrap_content">-->
+
+<!-- <android.support.v4.widget.SwipeRefreshLayout
+     android:id="@+id/swiperefreshlayout"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:scrollbars="vertical"
+     >-->
+
+
+<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:overlay="false"
+    app:progress_backgroud_color="#FFFAFAFA"
+    app:progress_colors="@array/material_colors"
+    app:progress_show_arrow="true"
+    app:progress_show_circle_backgroud="true"
+    app:wave_color="#20ff2020"
+    app:wave_height_type="normal"
+    app:wave_show="true">
 <android.support.v7.widget.RecyclerView
     android:id="@+id/rc_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 </android.support.v7.widget.RecyclerView>
-</android.support.v4.widget.SwipeRefreshLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayou-->t>
 
 
-
-</LinearLayout>
+</com.cjj.MaterialRefreshLayout><!--
+</LinearLayout>-->

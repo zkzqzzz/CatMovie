@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/grey_me" />
 <TextView
-    android:textSize="20sp"
-    android:text="全球电影奖项"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:text="全球电影奖项"
+    android:textSize="20sp" />
 
      <android.support.v7.widget.RecyclerView
         android:id="@+id/item_rc_zhaopian"
@@ -15,11 +21,11 @@
         ></android.support.v7.widget.RecyclerView>
 
     <TextView
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textColor="@color/red"
-        android:text="全部电影奖项>"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="全部电影奖项>"
+        android:textColor="@color/red"
+        android:textSize="20sp" />
 
 </LinearLayout>

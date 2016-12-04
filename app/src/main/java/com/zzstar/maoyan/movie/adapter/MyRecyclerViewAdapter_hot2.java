@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class MyRecyclerViewAdapter_hot2 extends RecyclerView.Adapter<MyRecyclerViewAdapter_hot2.ViewHolder> {
 
-    private Context context;
     private final List<MovieHotBean.DataBean.ComingBean> coming;
+    private Context context;
 
     public MyRecyclerViewAdapter_hot2(Context context, MovieHotBean movieHotBean) {
         this.context = context;
@@ -38,7 +38,7 @@ public class MyRecyclerViewAdapter_hot2 extends RecyclerView.Adapter<MyRecyclerV
             holder.head_text.setText(coming.get(position).getRt());
             holder.below_text.setText(coming.get(position).getNm());
             holder.below_text_down.setText(coming.get(position).getWish()+"人想看");
-            Picasso.with(context).load(coming.get(position).getImg()).into(holder.iv_mid);
+        Picasso.with(context).load(coming.get(position).getImg().replace("w.h", "160.180")).into(holder.iv_mid);
     }
 
     @Override

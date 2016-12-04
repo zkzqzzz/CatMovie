@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class MyRecyclerViewAdapter_hot extends RecyclerView.Adapter<MyRecyclerViewAdapter_hot.ViewHolder> {
 
+    private final List<MovieHotBean.DataBean.ComingBean> coming;
     private Context context;
     private  MovieHotBean movieHotBean;
-    private final List<MovieHotBean.DataBean.ComingBean> coming;
 
     public MyRecyclerViewAdapter_hot(Context context, MovieHotBean movieHotBean) {
         this.context = context;
@@ -37,7 +37,7 @@ public class MyRecyclerViewAdapter_hot extends RecyclerView.Adapter<MyRecyclerVi
 
     @Override
     public void onBindViewHolder(MyRecyclerViewAdapter_hot.ViewHolder holder, int position) {
-        Picasso.with(context).load(coming.get(position).getImg()).into(holder.iv_hot);
+        Picasso.with(context).load(coming.get(position).getImg().replace("w.h", "180.190")).into(holder.iv_hot);
         holder.hot_up.setText(coming.get(position).getNm());
         holder.hot_down.setText(coming.get(position).getScm());
     }

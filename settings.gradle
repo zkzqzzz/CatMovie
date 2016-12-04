@@ -1,1 +1,1 @@
-include ':app', ':okhttputils', ':FlycoTabLayout_Lib', ':MaterialRefreshLayout_library'
+include ':app', ':okhttputils', ':FlycoTabLayout_Lib', ':MaterialRefreshLayout_library', ':citypicker'

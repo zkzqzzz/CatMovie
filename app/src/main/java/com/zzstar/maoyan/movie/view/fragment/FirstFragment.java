@@ -2,6 +2,7 @@ package com.zzstar.maoyan.movie.view.fragment;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,25 +35,75 @@ import okhttp3.Call;
 public class FirstFragment extends BaseFragment {
     private ListView lv_first;
     private Banner banner;
+    //  private ViewPager my_vp;
     private ViewPagerBean viewPagerBean;
     private ListViewBean listViewBean;
     private MaterialRefreshLayout materialRefreshLayout;
+    private FangDajing fangdajing;
 
+    //    public static final int START = -1;
+//    // 停止
+//    public static final int STOP = -2;
+//    // 更新
+//    public static final int UPDATE = -3;
+//    // 接受传过来的当前页面数
+//    public static final int RECORD = -4;
+//    private int mCount = 0;
+//    private Handler handler=new Handler(){
+//    @Override
+//    public void handleMessage(Message msg) {
+//        switch (msg.what) {
+//
+//        }
+//
+//    }
+//};
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.fragment_first, null);
+
         lv_first = (ListView) view.findViewById(R.id.lv_first);
         materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
         View headview = View.inflate(context, R.layout.page1_view, null);
         banner = (Banner) headview.findViewById(R.id.banner);
         lv_first.addHeaderView(headview);
+
+
         materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 initData();
             }
         });
+
+        lv_first.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0) {
+                    if (fangdajing != null) {
+                        //                     fangdajing.fdjyidong(i);
+
+
+                    }
+                }
+            }
+        });
+
+
         return view;
+    }
+
+    public void setFangdajing(FangDajing fangdajing) {
+
+        this.fangdajing = fangdajing;
+
     }
 
     @Override
@@ -73,38 +124,19 @@ public class FirstFragment extends BaseFragment {
                 .id(100)
                 .build()
                 .execute(new MyListStringCallback());
-
-
-    }
-
-    private class MyStringCallback extends StringCallback {
-
-        @Override
-        public void onError(Call call, Exception e, int i) {
-            materialRefreshLayout.finishRefresh();
-        }
-
-        @Override
-        public void onResponse(String response, int id) {
-            materialRefreshLayout.finishRefresh();
-            switch (id) {
-                case 100:
-                    if (response != null) {
-                        processData(response);
-                        initBanner();
-
-                    }
-                    break;
-                case 101:
-                    Toast.makeText(context, "https", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
     }
 
     private void initBanner() {
-
-
+//        int imagesSize = viewPagerBean.getData().size();
+//        List<String> imageUrls = new ArrayList<String>(imagesSize);
+//        for (int i = 0; i < imagesSize; i++) {
+//            imageUrls.add(viewPagerBean.getData().get(i).getImgUrl());
+//        }
+//
+//        MyViewPagerAdapter adapter = new MyViewPagerAdapter(imageUrls,context);
+//
+//
+//        my_vp.setAdapter(adapter);
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
@@ -125,11 +157,50 @@ public class FirstFragment extends BaseFragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
+
     }
 
     private void processData(String response) {
         viewPagerBean = JSON.parseObject(response, ViewPagerBean.class);
 
+    }
+
+    private void processListData(String json) {
+
+        listViewBean = JSON.parseObject(json, ListViewBean.class);
+
+    }
+
+    public interface FangDajing {
+
+
+        void fdjyidong(int i);
+
+    }
+
+    private class MyStringCallback extends StringCallback {
+
+        @Override
+        public void onError(Call call, Exception e, int i) {
+            materialRefreshLayout.finishRefresh();
+        }
+
+        @Override
+        public void onResponse(String response, int id) {
+            materialRefreshLayout.finishRefresh();
+            switch (id) {
+                case 100:
+                    if (response != null) {
+                        processData(response);
+                        initBanner();
+                    }
+                    break;
+                case 101:
+                    Toast.makeText(context, "https", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
     }
 
     private class GlideImageLoader extends ImageLoader {
@@ -138,7 +209,6 @@ public class FirstFragment extends BaseFragment {
             Picasso.with(context).load((String) path).into(imageView);
         }
     }
-
 
     private class MyListStringCallback extends StringCallback {
         @Override
@@ -154,11 +224,5 @@ public class FirstFragment extends BaseFragment {
             lv_first.setAdapter(adapter);
 
         }
-    }
-
-    private void processListData(String json) {
-
-        listViewBean = JSON.parseObject(json, ListViewBean.class);
-
     }
 }

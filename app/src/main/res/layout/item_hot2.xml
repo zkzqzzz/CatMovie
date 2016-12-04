@@ -13,28 +13,28 @@
         android:textSize="15sp" />
 
     <ImageView
-        android:padding="5dp"
         android:id="@+id/iv_mid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
         android:layout_below="@id/head_text"
-        android:background="@drawable/background02" />
-    <ImageView
-        android:padding="5dp"
+        android:padding="5dp" />
 
+    <ImageView
         android:id="@+id/iv_care"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/head_text"
-        android:background="@drawable/xihuan_cang" />
+        android:background="@drawable/xihuan_cang"
+        android:padding="5dp" />
 
     <TextView
-        android:padding="5dp"
-
         android:id="@+id/below_text"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_mid"
+        android:padding="5dp"
         android:text="12月3日"
         android:textSize="15sp" />
     <TextView

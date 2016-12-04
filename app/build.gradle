@@ -32,4 +32,6 @@ dependencies {
     compile project(':MaterialRefreshLayout_library')
     compile 'com.android.support:design:25.0.0'
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
+    compile project(':citypicker')
+    compile 'com.google.code.gson:gson:2.2.4'
 }

@@ -25,6 +25,7 @@ public class SplashActivity extends Activity {
     ImageView advertise;
     private FirstAdvertise firstAdvertise;
     private FirstAdvertise.PostersBean postersBean;
+    private int duringTime;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -44,8 +45,6 @@ public class SplashActivity extends Activity {
             }
         }
     };
-    private int duringTime;
-
 
     private void gotoMainActivity() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -83,6 +82,29 @@ public class SplashActivity extends Activity {
 
     }
 
+    private void processData(String response) {
+        firstAdvertise = JSON.parseObject(response, FirstAdvertise.class);
+        //    showAdvertise();
+    }
+
+    private void showAdvertise() {
+
+        postersBean = firstAdvertise.getPosters().get(0);
+        Picasso.with(this).load(postersBean.getPic()).into(advertise);
+        duringTime = postersBean.getDuration();
+        handler.removeMessages(0);
+        handler.sendEmptyMessageDelayed(1, 2000);
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeMessages(0);
+
+    }
+
     private class MyStringCallback extends StringCallback {
 
 
@@ -105,30 +127,6 @@ public class SplashActivity extends Activity {
                     break;
             }
         }
-
-    }
-
-    private void processData(String response) {
-        firstAdvertise = JSON.parseObject(response, FirstAdvertise.class);
-        showAdvertise();
-    }
-
-    private void showAdvertise() {
-
-        postersBean = firstAdvertise.getPosters().get(0);
-        Picasso.with(this).load(postersBean.getPic()).into(advertise);
-        duringTime = postersBean.getDuration();
-        handler.removeMessages(0);
-        handler.sendEmptyMessageDelayed(1,2000);
-
-
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-       handler.removeMessages(0);
 
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -15,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableRight="@drawable/show_city01"
+            android:drawableRight="@drawable/xia"
             android:text="北京"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <com.zzstar.maoyan.movie.view.ViewPagerIndicator
             android:id="@+id/indicator"
@@ -35,10 +35,8 @@
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="49dp"
             android:background="@drawable/jo"
-            android:paddingLeft="30dp"
-
-
             />
     </LinearLayout>
 
