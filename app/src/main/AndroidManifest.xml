@@ -44,7 +44,9 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".movie.view.fragment.WebViewActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.ShopActivity" />
+        <activity android:name=".adapter.FenLeiActivity"></activity>
     </application>
 
 </manifest>

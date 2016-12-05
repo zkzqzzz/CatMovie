@@ -37,7 +37,6 @@ public class SecondFragment extends BaseFragment {
         view = View.inflate(context, R.layout.second_fragment_hot, null);
         rc_view = (RecyclerView) view.findViewById(R.id.rc_view);
         refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
-
         refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
@@ -65,6 +64,7 @@ public class SecondFragment extends BaseFragment {
 
     private class MyStringCallback extends StringCallback {
 
+        int j;
         private ArrayList<String> groupFirstLine;
         private ArrayList<String> groupId;
 
@@ -104,7 +104,6 @@ public class SecondFragment extends BaseFragment {
 
         }
 
-
         private void initItemdirectionData() {
 
             groupFirstLine = new ArrayList<>();
@@ -120,10 +119,10 @@ public class SecondFragment extends BaseFragment {
             for (int i = 1; i < movieHotBean.getData().getComing().size(); i++) {
                 String comingTitleA = movieHotBean.getData().getComing().get(i).getComingTitle();
                 String comingTitleB = movieHotBean.getData().getComing().get(i - 1).getComingTitle();
-                int j = 0;
+
                 if (!comingTitleA.equals(comingTitleB)) {
                     groupFirstLine.add(comingTitleA);
-                    groupId.add(3 + i + "");
+                    groupId.add(3 + i + "");//4  5
                     j = 3 + i;
                 } else {
                     groupFirstLine.add(comingTitleB);

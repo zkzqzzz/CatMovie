@@ -30,7 +30,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private MovieHotBean movieHotBean;
 
     public MyRecyclerViewAdapter(Context context, MovieHotBean movieHotBean) {
-
         this.movieHotBean = movieHotBean;
         this.context = context;
     }

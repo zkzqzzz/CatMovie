@@ -23,10 +23,24 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_search"
+        app:overlay="false"
+        app:progress_backgroud_color="#FFFAFAFA"
+        app:progress_colors="@array/material_colors"
+        app:progress_show_arrow="true"
+        app:progress_show_circle_backgroud="true"
+        app:wave_color="#20ff2020"
+        app:wave_height_type="normal"
+        app:wave_show="true">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ll_search"></android.support.v7.widget.RecyclerView>
-
+    </com.cjj.MaterialRefreshLayout>
 </RelativeLayout>
