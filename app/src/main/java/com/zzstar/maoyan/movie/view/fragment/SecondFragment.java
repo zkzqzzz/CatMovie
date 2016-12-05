@@ -12,8 +12,11 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import com.zzstar.maoyan.R;
 import com.zzstar.maoyan.base.BaseFragment;
 import com.zzstar.maoyan.movie.adapter.MyRecyclerViewAdapter;
+import com.zzstar.maoyan.movie.adapter.SectionDecoration;
 import com.zzstar.maoyan.movie.bean.MovieHotBean;
 import com.zzstar.maoyan.utils.Constants;
+
+import java.util.ArrayList;
 
 import okhttp3.Call;
 
@@ -25,22 +28,16 @@ public class SecondFragment extends BaseFragment {
     private RecyclerView rc_view;
     private MovieHotBean movieHotBean;
     private View view;
-    //private SwipeRefreshLayout swiperefreshlayout;
     private MaterialRefreshLayout refresh;
+    private SectionDecoration sectionDecoration;
+    private boolean haveDirection = false;
 
     @Override
     public View initView() {
         view = View.inflate(context, R.layout.second_fragment_hot, null);
         rc_view = (RecyclerView) view.findViewById(R.id.rc_view);
         refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
-//        swiperefreshlayout = (SwipeRefreshLayout) view.findViewById(swiperefreshlayout);
-//        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                initData();
-//
-//            }
-//        });
+
         refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
@@ -67,6 +64,10 @@ public class SecondFragment extends BaseFragment {
     }
 
     private class MyStringCallback extends StringCallback {
+
+        private ArrayList<String> groupFirstLine;
+        private ArrayList<String> groupId;
+
         @Override
         public void onError(Call call, Exception e, int id) {
 
@@ -74,14 +75,61 @@ public class SecondFragment extends BaseFragment {
 
         @Override
         public void onResponse(String response, int id) {
-            refresh.finishRefresh();
-            // swiperefreshlayout.setRefreshing(false);
+
             processData(response);
+            refresh.finishRefresh();
+
+            initItemdirectionData();
+
+            sectionDecoration = new SectionDecoration(context, new SectionDecoration.DecorationCallback() {
+                @Override
+                public long getGroupId(int position) {
+                    return Integer.parseInt(groupId.get(position));
+                }
+
+                @Override
+                public String getGroupFirstLine(int position) {
+                    return groupFirstLine.get(position);
+                }
+            });
+
             MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(context, movieHotBean);
+            rc_view.setAdapter(adapter);
             LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             rc_view.setLayoutManager(manager);
-            rc_view.setAdapter(adapter);
+            if (!haveDirection) {
+                haveDirection = true;
+                rc_view.addItemDecoration(sectionDecoration);
+            }
 
+        }
+
+
+        private void initItemdirectionData() {
+
+            groupFirstLine = new ArrayList<>();
+            groupFirstLine.add("");
+            groupFirstLine.add("预告片推荐");
+            groupFirstLine.add("近期最受期待");
+            groupFirstLine.add(movieHotBean.getData().getComing().get(0).getComingTitle());
+            groupId = new ArrayList<>();
+            groupId.add("-1");
+            groupId.add("1");
+            groupId.add("2");
+            groupId.add("3");
+            for (int i = 1; i < movieHotBean.getData().getComing().size(); i++) {
+                String comingTitleA = movieHotBean.getData().getComing().get(i).getComingTitle();
+                String comingTitleB = movieHotBean.getData().getComing().get(i - 1).getComingTitle();
+                int j = 0;
+                if (!comingTitleA.equals(comingTitleB)) {
+                    groupFirstLine.add(comingTitleA);
+                    groupId.add(3 + i + "");
+                    j = 3 + i;
+                } else {
+                    groupFirstLine.add(comingTitleB);
+                    groupId.add(j + "");
+                }
+            }
         }
     }
 }

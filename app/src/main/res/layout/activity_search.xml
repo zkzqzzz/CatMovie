@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="280dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="21dp"
+            android:layout_marginStart="26dp"
+            android:background="@drawable/shape"
+            android:clickable="true"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:hint="全网搜索"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/quxiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_me">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="热门搜索"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <com.zzstar.maoyan.view.FlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_me">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/yd"
+                android:gravity="center"
+                android:text="分类找片" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/yb"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="影人" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/y6"
+                android:gravity="center"
+                android:text="影院" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/y8"
+                android:gravity="center"
+                android:text="新闻" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

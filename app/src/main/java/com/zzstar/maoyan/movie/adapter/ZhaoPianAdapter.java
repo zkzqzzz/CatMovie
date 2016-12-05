@@ -19,7 +19,6 @@ import com.zzstar.maoyan.R;
 import com.zzstar.maoyan.movie.bean.DianyingJiangBean;
 import com.zzstar.maoyan.utils.Constants;
 import com.zzstar.maoyan.utils.DisplayUtil;
-import com.zzstar.maoyan.utils.LogUtil;
 
 import okhttp3.Call;
 
@@ -221,7 +220,6 @@ public class ZhaoPianAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onResponse(String response, int id) {
                 refreshing.finishRefresh();
                 processData(response);
-                LogUtil.e(jiangBean.getData().get(0).getFestivalName() + "------------------");
                 RecyclerView3Adapter adapter = new RecyclerView3Adapter(context, jiangBean);
                 item_rc_zhaopian.setAdapter(adapter);
             }

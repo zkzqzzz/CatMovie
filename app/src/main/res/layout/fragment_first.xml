@@ -1,6 +1,11 @@
-<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.cjj.MaterialRefreshLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/refresh"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:overlay="false"
@@ -10,9 +15,28 @@
     app:progress_show_circle_backgroud="true"
     app:wave_color="#20ff2020"
     app:wave_height_type="normal"
-    app:wave_show="true">
-    <ListView
+        app:wave_show="true">
+
+        <ListView
         android:id="@+id/lv_first"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </com.cjj.MaterialRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_pr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="220dp"
+            android:background="@drawable/backgroud_logo02"
+            android:indeterminateDrawable="@drawable/anim_loading" />
+
+    </LinearLayout>
+</RelativeLayout>

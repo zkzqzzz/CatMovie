@@ -1,10 +1,13 @@
 package com.zzstar.maoyan.movie.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
-import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -18,6 +21,7 @@ import com.youth.banner.loader.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zzstar.maoyan.R;
+import com.zzstar.maoyan.activity.SearchActivity;
 import com.zzstar.maoyan.base.BaseFragment;
 import com.zzstar.maoyan.movie.adapter.MyListViewAdapter;
 import com.zzstar.maoyan.movie.bean.ListViewBean;
@@ -35,76 +39,58 @@ import okhttp3.Call;
 public class FirstFragment extends BaseFragment {
     private ListView lv_first;
     private Banner banner;
-    //  private ViewPager my_vp;
     private ViewPagerBean viewPagerBean;
     private ListViewBean listViewBean;
     private MaterialRefreshLayout materialRefreshLayout;
-    private FangDajing fangdajing;
-
-    //    public static final int START = -1;
-//    // 停止
-//    public static final int STOP = -2;
-//    // 更新
-//    public static final int UPDATE = -3;
-//    // 接受传过来的当前页面数
-//    public static final int RECORD = -4;
-//    private int mCount = 0;
-//    private Handler handler=new Handler(){
-//    @Override
-//    public void handleMessage(Message msg) {
-//        switch (msg.what) {
-//
-//        }
-//
-//    }
-//};
+    private TextView et_search;
+    private LinearLayout ll_pr;
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.fragment_first, null);
-
         lv_first = (ListView) view.findViewById(R.id.lv_first);
         materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
         View headview = View.inflate(context, R.layout.page1_view, null);
+        et_search = (TextView) headview.findViewById(R.id.et_search);
+
+        ll_pr = (LinearLayout) view.findViewById(R.id.ll_pr);
+        et_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SearchActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
         banner = (Banner) headview.findViewById(R.id.banner);
         lv_first.addHeaderView(headview);
 
-
+        lv_first.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 1) {
+                    position = 0;
+                } else if (position == 2) {
+                    return;
+                } else {
+                    position = position - 2;
+                }
+                Intent intent = new Intent(context, WebViewActivity.class);
+                String data = " http://m.maoyan.com/movie/" + listViewBean.getData().getMovies().get(position).getId() + "?_v_=1111";
+                intent.putExtra("url", data);
+                context.startActivity(intent);
+            }
+        });
         materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 initData();
             }
         });
-
-        lv_first.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem == 0) {
-                    if (fangdajing != null) {
-                        //                     fangdajing.fdjyidong(i);
-
-
-                    }
-                }
-            }
-        });
-
-
+        //  lv_first.
         return view;
     }
 
-    public void setFangdajing(FangDajing fangdajing) {
 
-        this.fangdajing = fangdajing;
-
-    }
 
     @Override
     public void initData() {
@@ -127,16 +113,7 @@ public class FirstFragment extends BaseFragment {
     }
 
     private void initBanner() {
-//        int imagesSize = viewPagerBean.getData().size();
-//        List<String> imageUrls = new ArrayList<String>(imagesSize);
-//        for (int i = 0; i < imagesSize; i++) {
-//            imageUrls.add(viewPagerBean.getData().get(i).getImgUrl());
-//        }
-//
-//        MyViewPagerAdapter adapter = new MyViewPagerAdapter(imageUrls,context);
-//
-//
-//        my_vp.setAdapter(adapter);
+
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
@@ -172,12 +149,7 @@ public class FirstFragment extends BaseFragment {
 
     }
 
-    public interface FangDajing {
 
-
-        void fdjyidong(int i);
-
-    }
 
     private class MyStringCallback extends StringCallback {
 
@@ -222,7 +194,7 @@ public class FirstFragment extends BaseFragment {
             processListData(response);
             MyListViewAdapter adapter = new MyListViewAdapter(context, listViewBean);
             lv_first.setAdapter(adapter);
-
+            ll_pr.setVisibility(View.GONE);
         }
     }
 }

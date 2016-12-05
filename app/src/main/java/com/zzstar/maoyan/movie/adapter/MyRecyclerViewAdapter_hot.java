@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zzstar.maoyan.R;
-import com.zzstar.maoyan.movie.bean.MovieHotBean;
+import com.zzstar.maoyan.movie.bean.DaiyingFirstBean;
 
 import java.util.List;
 
@@ -18,14 +18,13 @@ import java.util.List;
  */
 public class MyRecyclerViewAdapter_hot extends RecyclerView.Adapter<MyRecyclerViewAdapter_hot.ViewHolder> {
 
-    private final List<MovieHotBean.DataBean.ComingBean> coming;
+    private final List<DaiyingFirstBean.DataBean> data;
     private Context context;
-    private  MovieHotBean movieHotBean;
 
-    public MyRecyclerViewAdapter_hot(Context context, MovieHotBean movieHotBean) {
+
+    public MyRecyclerViewAdapter_hot(Context context, DaiyingFirstBean daiyingFirstBean) {
         this.context = context;
-        this.movieHotBean=movieHotBean;
-        coming = movieHotBean.getData().getComing();
+        data = daiyingFirstBean.getData();
 
     }
 
@@ -37,14 +36,14 @@ public class MyRecyclerViewAdapter_hot extends RecyclerView.Adapter<MyRecyclerVi
 
     @Override
     public void onBindViewHolder(MyRecyclerViewAdapter_hot.ViewHolder holder, int position) {
-        Picasso.with(context).load(coming.get(position).getImg().replace("w.h", "180.190")).into(holder.iv_hot);
-        holder.hot_up.setText(coming.get(position).getNm());
-        holder.hot_down.setText(coming.get(position).getScm());
+        Picasso.with(context).load(data.get(position).getImg()).into(holder.iv_hot);
+        holder.hot_up.setText(data.get(position).getMovieName());
+        holder.hot_down.setText(data.get(position).getOriginName());
     }
 
     @Override
     public int getItemCount() {
-        return coming.size();
+        return data.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
