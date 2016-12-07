@@ -4,11 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_shop"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/material_red">
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
+    <LinearLayout
+        android:id="@+id/ll_title_shop"
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
         <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
@@ -16,7 +21,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
             android:background="@drawable/abc_ab_back" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,19 +30,12 @@
             android:text="商城"
             android:textColor="@color/white"
             android:textSize="18sp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="3dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/ic_search" />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_shop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

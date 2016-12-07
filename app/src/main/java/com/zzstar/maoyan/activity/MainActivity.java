@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
+    int position;
     private FrameLayout fl_main;
     private RadioGroup rg_main;
     private RadioButton bt_movie;
@@ -31,6 +32,7 @@ public class MainActivity extends FragmentActivity {
     private FoundFragment foundFragment;
     private UserFragment userFragment;
     private BaseFragment mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,7 @@ public class MainActivity extends FragmentActivity {
         initData();
         initListener();
     }
-int position;
+
     private void initListener() {
         rg_main.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -70,7 +72,7 @@ int position;
     }
 
 
-    private void switchFragment(Fragment fromFragment, BaseFragment nextFragment){
+    private void switchFragment(Fragment fromFragment, BaseFragment nextFragment) {
         if (mContext != nextFragment) {
             mContext = nextFragment;
             if (nextFragment != null) {
@@ -81,35 +83,33 @@ int position;
                     if (fromFragment != null) {
                         transaction.hide(fromFragment);
                     }
-                    transaction.add(R.id.fl_main, nextFragment).commit();
+                    if (nextFragment == movieFragment) {
+                        transaction.add(R.id.fl_main, movieFragment, "movieFragmentTag").commit();
+
+                    } else {
+                        transaction.add(R.id.fl_main, nextFragment).commit();
+                    }
                 } else {
                     //隐藏当前Fragment
                     if (fromFragment != null) {
                         transaction.hide(fromFragment);
                     }
                     transaction.show(nextFragment).commit();
-
                 }
             }
         }
-
-
-
     }
 
     private void findViews() {
-        fl_main = (FrameLayout)findViewById(R.id.fl_main);
-        rg_main = (RadioGroup)findViewById(R.id.rg_main);
-        bt_movie = (RadioButton)findViewById(R.id.bt_movie);
-        bt_movie = (RadioButton)findViewById(R.id.bt_cinema);
-        bt_movie = (RadioButton)findViewById(R.id.bt_found);
-        bt_movie = (RadioButton)findViewById(R.id.bt_mine);
-
-
+        fl_main = (FrameLayout) findViewById(R.id.fl_main);
+        rg_main = (RadioGroup) findViewById(R.id.rg_main);
+        bt_movie = (RadioButton) findViewById(R.id.bt_movie);
+        bt_movie = (RadioButton) findViewById(R.id.bt_cinema);
+        bt_movie = (RadioButton) findViewById(R.id.bt_found);
+        bt_movie = (RadioButton) findViewById(R.id.bt_mine);
     }
 
     private void initData() {
-
         fragments = new ArrayList<>();
         movieFragment = new MovieFragment();
         cinemaFragment = new CinemaFragment();
@@ -119,6 +119,5 @@ int position;
         fragments.add(cinemaFragment);
         fragments.add(foundFragment);
         fragments.add(userFragment);
-
     }
 }

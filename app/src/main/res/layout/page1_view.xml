@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/movie_fragment_title" />
 
     <com.youth.banner.Banner
         android:id="@+id/banner"

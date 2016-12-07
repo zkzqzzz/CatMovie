@@ -2,6 +2,7 @@ package com.zzstar.maoyan.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,9 @@ import com.youth.banner.loader.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zzstar.maoyan.R;
+import com.zzstar.maoyan.activity.shopapp.FenLeiActivity;
 import com.zzstar.maoyan.bean.ShopBean;
+import com.zzstar.maoyan.bean.ShopLikeBean;
 import com.zzstar.maoyan.utils.Constants;
 
 import java.util.ArrayList;
@@ -28,49 +31,61 @@ import okhttp3.Call;
 /**
  * Created by zzstar on 2016/12/5.
  */
-public class ShapAdapter extends RecyclerView.Adapter {
+public class ShopAdapter extends RecyclerView.Adapter {
 
     private Context context;
+    private ShopLikeBean shopLikeBean;
 
-    public ShapAdapter(Context context) {
+    public ShopAdapter(Context context, ShopLikeBean shopLikeBean) {
         this.context = context;
-
-
+        this.shopLikeBean = shopLikeBean;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 0) {
             View view = View.inflate(context, R.layout.banner_shop, null);
             return new BannerHolder(view);
+        } else if (viewType == 1) {
+            View view = LayoutInflater.from(context).inflate(R.layout.chanl_shop, parent, false);
+            return new ChanlHolder(view);
+        } else {
+            View view = View.inflate(context, R.layout.shop_grid_view, null);
+            return new MayLikeViewHolder(view);
         }
-        //else if (viewType == 1) {
-        View view = LayoutInflater.from(context).inflate(R.layout.chanl_shop, parent, false);
-        return new ChanlHolder(view);
-        // }else if(){
-
-        //  }
-
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
 
+        if (getItemViewType(position) == 2) {
+            ShopLikeBean.DataBean.ListBean listBean = shopLikeBean.getData().getList().get(position - 2);
+
+            MayLikeViewHolder mayLikeViewHolder = (MayLikeViewHolder) holder;
+            Picasso.with(context).load(listBean.getPic()).into(mayLikeViewHolder.iv_shop_gridview);
+            mayLikeViewHolder.name.setText(listBean.getTitle());
+            mayLikeViewHolder.price.setText(listBean.getPrice() + "");
+            mayLikeViewHolder.old_price.setText(listBean.getValue() + "元");
+            mayLikeViewHolder.old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return shopLikeBean.getData().getList().size() + 2;
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
             return 0;
-        } else {
+        } else if (position == 1) {
             return 1;
+        } else {
+            return 2;
         }
     }
 
@@ -86,8 +101,6 @@ public class ShapAdapter extends RecyclerView.Adapter {
         }
 
         private void initData() {
-
-
             OkHttpUtils.get().url(Constants.SHOPVIEWPAGER).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -97,25 +110,16 @@ public class ShapAdapter extends RecyclerView.Adapter {
                 public void onResponse(String response, int id) {
                     shopBean = JSON.parseObject(response, ShopBean.class);
                     banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
-                    //设置图片加载器
                     banner.setImageLoader(new GlideImageLoader());
                     int imagesSize = shopBean.getData().size();
                     List<String> imageUrl = new ArrayList<String>(imagesSize);
                     for (int i = 0; i < imagesSize; i++) {
                         imageUrl.add(shopBean.getData().get(i).getImgUrl());
                     }
-                    //设置图片集合
                     banner.setImages(imageUrl);
-                    //设置banner动画效果
-                    // banner.setBannerAnimation(Transformer.DepthPage);
-                    //设置自动轮播，默认为true
                     banner.isAutoPlay(true);
-                    //设置轮播时间
                     banner.setDelayTime(1500);
                     banner.setBannerStyle(Banner.SCROLLBAR_POSITION_DEFAULT);
-                    //设置指示器位置（当banner模式中有指示器时）
-                    // banner.setIndicatorGravity(BannerConfig.CENTER);
-                    //banner设置方法全部调用完毕时最后调用
                     banner.start();
                 }
             });
@@ -146,6 +150,23 @@ public class ShapAdapter extends RecyclerView.Adapter {
 
                 }
             });
+
+        }
+    }
+
+    private class MayLikeViewHolder extends RecyclerView.ViewHolder {
+        private ImageView iv_shop_gridview;
+        private TextView name;
+        private TextView price;
+        private TextView old_price;
+
+        public MayLikeViewHolder(View view) {
+            super(view);
+            iv_shop_gridview = (ImageView) view.findViewById(R.id.iv_shop_gridview);
+            price = (TextView) view.findViewById(R.id.price);
+            name = (TextView) view.findViewById(R.id.name);
+            old_price = (TextView) view.findViewById(R.id.old_price);
+
 
         }
     }

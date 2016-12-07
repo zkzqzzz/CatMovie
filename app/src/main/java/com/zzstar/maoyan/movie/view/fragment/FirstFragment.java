@@ -2,7 +2,9 @@ package com.zzstar.maoyan.movie.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,17 +18,19 @@ import com.cjj.MaterialRefreshListener;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zzstar.maoyan.R;
+import com.zzstar.maoyan.activity.MainActivity;
 import com.zzstar.maoyan.activity.SearchActivity;
 import com.zzstar.maoyan.base.BaseFragment;
+import com.zzstar.maoyan.movie.MovieFragment;
 import com.zzstar.maoyan.movie.adapter.MyListViewAdapter;
 import com.zzstar.maoyan.movie.bean.ListViewBean;
 import com.zzstar.maoyan.movie.bean.ViewPagerBean;
 import com.zzstar.maoyan.utils.Constants;
+import com.zzstar.maoyan.utils.DisplayUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +48,27 @@ public class FirstFragment extends BaseFragment {
     private MaterialRefreshLayout materialRefreshLayout;
     private TextView et_search;
     private LinearLayout ll_pr;
+
+
     @Override
     public View initView() {
+
         View view = View.inflate(context, R.layout.fragment_first, null);
+
+        View headview2 = View.inflate(context, R.layout.movie_fragment_title, null);
+        View headview = View.inflate(context, R.layout.page1_view, null);
         lv_first = (ListView) view.findViewById(R.id.lv_first);
         materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
-        View headview = View.inflate(context, R.layout.page1_view, null);
-        et_search = (TextView) headview.findViewById(R.id.et_search);
-
+        et_search = (TextView) headview2.findViewById(R.id.et_search);
         ll_pr = (LinearLayout) view.findViewById(R.id.ll_pr);
+        banner = (Banner) headview.findViewById(R.id.banner);
+        lv_first.addHeaderView(headview2);
+        lv_first.addHeaderView(headview);
+        initListener();
+        return view;
+    }
+
+    private void initListener() {
         et_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,15 +77,13 @@ public class FirstFragment extends BaseFragment {
 
             }
         });
-        banner = (Banner) headview.findViewById(R.id.banner);
-        lv_first.addHeaderView(headview);
 
         lv_first.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {
+                if (position == 2) {
                     position = 0;
-                } else if (position == 2) {
+                } else if (position == 3) {
                     return;
                 } else {
                     position = position - 2;
@@ -80,16 +94,61 @@ public class FirstFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+
         materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 initData();
             }
         });
-        //  lv_first.
-        return view;
+
+        lv_first.setOnScrollListener(new AbsListView.OnScrollListener() {
+            int height = DisplayUtil.dip2px(context, 40);
+            int change = DisplayUtil.dip2px(context, 40);
+            int change2 = DisplayUtil.dip2px(context, 70);
+            int left = DisplayUtil.dip2px(context, 110);
+            int top = DisplayUtil.dip2px(context, 11);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DisplayUtil.dip2px(context, 30), DisplayUtil.dip2px(context, 30));
+            Fragment movieFragmentTag = ((MainActivity) context).getSupportFragmentManager().findFragmentByTag("movieFragmentTag");
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0) {
+                    int scrollY = getScrollY();
+                    if (0 <= scrollY && scrollY < height) {
+                        ((MovieFragment) movieFragmentTag).search.setClickable(false);
+                        layoutParams.setMargins((int) (left - (scrollY / (height + 0.01) * change2)), top, 0, 0);
+                        ((MovieFragment) movieFragmentTag).search.setLayoutParams(layoutParams);
+                        ((MovieFragment) movieFragmentTag).search.getBackground().setAlpha((int) (scrollY / (height + 0.01) * 255));
+                    }
+                } else {
+                    ((MovieFragment) movieFragmentTag).search.setClickable(true);
+
+                    layoutParams.setMargins(change, top, 0, 0);
+                    ((MovieFragment) movieFragmentTag).search.setLayoutParams(layoutParams);
+                    ((MovieFragment) movieFragmentTag).search.getBackground().setAlpha(255);
+
+                }
+            }
+        });
+
     }
 
+
+    public int getScrollY() {
+
+        View c = lv_first.getChildAt(0);
+        if (c == null) {
+            return 0;
+        }
+        int top = c.getTop();
+        return -top;
+    }
 
 
     @Override
@@ -113,26 +172,17 @@ public class FirstFragment extends BaseFragment {
     }
 
     private void initBanner() {
-
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
-        //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         int imagesSize = viewPagerBean.getData().size();
         List<String> imageUrl = new ArrayList<String>(imagesSize);
         for (int i = 0; i < imagesSize; i++) {
             imageUrl.add(viewPagerBean.getData().get(i).getImgUrl());
         }
-        //设置图片集合
         banner.setImages(imageUrl);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置自动轮播，默认为true
         banner.isAutoPlay(true);
-        //设置轮播时间
         banner.setDelayTime(1500);
-        //设置指示器位置（当banner模式中有指示器时）
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
         banner.start();
 
 
@@ -148,11 +198,7 @@ public class FirstFragment extends BaseFragment {
         listViewBean = JSON.parseObject(json, ListViewBean.class);
 
     }
-
-
-
     private class MyStringCallback extends StringCallback {
-
         @Override
         public void onError(Call call, Exception e, int i) {
             materialRefreshLayout.finishRefresh();
@@ -197,4 +243,6 @@ public class FirstFragment extends BaseFragment {
             ll_pr.setVisibility(View.GONE);
         }
     }
+
+
 }

@@ -66,8 +66,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         } else if (getItemViewType(position) == 3) {
             ThirdViewHolder thirdViewHolder = (ThirdViewHolder) holder;
             thirdViewHolder.setData(movieHotBean.getData().getComing().get(position - 3));
-
-
         }
     }
 
@@ -76,11 +74,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         return movieHotBean.getData().getComing().size() + 3;
     }
-
-
     @Override
     public int getItemViewType(int position) {
-
         if (position == 0) {
             return 0;
         } else if (position == 1) {
@@ -89,13 +84,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             return 2;
         }
         return 3;
-
-
     }
 
     private class FirstViewHolder extends RecyclerView.ViewHolder {
         private RecyclerView rc_view_1;
-
         private DaiyingFirstBean daiyingFirstBean;
 
         public FirstViewHolder(View view) {
@@ -128,7 +120,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 processData(response);
                 MyRecyclerViewAdapter_hot adapter_hot = new MyRecyclerViewAdapter_hot(context, daiyingFirstBean);
                 rc_view_1.setAdapter(adapter_hot);
-
             }
 
         }
@@ -190,7 +181,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
             });
         }
-
 
     }
 

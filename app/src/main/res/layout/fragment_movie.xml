@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="450dp"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_movef"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/red"
@@ -25,19 +26,15 @@
             android:layout_width="200dp"
             android:layout_height="36dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="35dp" />
 
-        <View
-            android:layout_width="20dp"
-            android:layout_height="0dp" />
-
-        <ImageView
+        <TextView
             android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="49dp"
-            android:background="@drawable/ic_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/search"
             />
     </LinearLayout>
 

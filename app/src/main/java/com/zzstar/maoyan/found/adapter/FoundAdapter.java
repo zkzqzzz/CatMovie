@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zzstar.maoyan.R;
-import com.zzstar.maoyan.activity.ShopActivity;
+import com.zzstar.maoyan.activity.shopapp.ShopActivity;
 
 /**
  * Created by zzstar on 2016/12/5.

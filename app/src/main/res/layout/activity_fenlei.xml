@@ -10,6 +10,7 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/fenlei_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -28,14 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center_vertical">
-
         <LinearLayout
-
+            android:id="@+id/xi_lie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +42,6 @@
                 android:gravity="center"
                 android:text="系列/主题"
                 android:textSize="17sp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,11 +50,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/gao_wan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,20 +62,18 @@
                 android:gravity="center"
                 android:text="高玩专区"
                 android:textSize="17sp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:background="@drawable/a4k" />
         </LinearLayout>
-
         <LinearLayout
+            android:id="@+id/pai_xu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +81,6 @@
                 android:gravity="center"
                 android:text="排序"
                 android:textSize="17sp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +89,15 @@
         </LinearLayout>
     </LinearLayout>
 
+    <GridView
+
+        android:id="@+id/fenlei_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2">
+
+
+    </GridView>
 </LinearLayout>
 
 
