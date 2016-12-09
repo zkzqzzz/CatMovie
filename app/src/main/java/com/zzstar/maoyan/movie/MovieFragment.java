@@ -79,6 +79,7 @@ public class MovieFragment extends BaseFragment {
         mList = new ArrayList<>();
         firstFragment = new FirstFragment();
         secondFragment = new SecondFragment();
+
         thirdFragment = new ThirdFragment();
             mList.add(firstFragment);
             mList.add(secondFragment);

@@ -37,9 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SplashActivity">
-
-        </activity>
+        <activity android:name=".activity.SplashActivity"></activity>
         <activity android:name="com.zaaach.citypicker.CityPickerActivity" />
         <activity
             android:name=".activity.SearchActivity"
@@ -48,7 +46,8 @@
             android:name=".movie.view.fragment.WebViewActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activity.shopapp.ShopActivity" />
-        <activity android:name=".activity.shopapp.FenLeiActivity"></activity>
+        <activity android:name=".activity.shopapp.FenLeiActivity" />
+        <activity android:name=".activity.LoginActivity"></activity>
     </application>
 
 </manifest>

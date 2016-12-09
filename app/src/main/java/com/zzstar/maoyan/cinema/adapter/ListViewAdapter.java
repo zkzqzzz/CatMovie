@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zzstar.maoyan.R;
-import com.zzstar.maoyan.bean.CinemaData;
+import com.zzstar.maoyan.bean.Cinema;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     private Context context;
-    private List<CinemaData.DataBean.CinemaBean> cinemaBeen;
+    private List<Cinema.DataBean.CinemaBean> cinemaBeen;
 
-    public ListViewAdapter(Context context, List<CinemaData.DataBean.CinemaBean> cinemaBeen) {
+    public ListViewAdapter(Context context, List<Cinema.DataBean.CinemaBean> cinemaBeen) {
         this.context = context;
         this.cinemaBeen = cinemaBeen;
     }

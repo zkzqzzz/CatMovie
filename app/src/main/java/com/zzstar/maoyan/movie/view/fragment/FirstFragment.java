@@ -141,7 +141,6 @@ public class FirstFragment extends BaseFragment {
 
 
     public int getScrollY() {
-
         View c = lv_first.getChildAt(0);
         if (c == null) {
             return 0;

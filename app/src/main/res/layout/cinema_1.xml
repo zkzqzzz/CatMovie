@@ -1,5 +1,151 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:id="@+id/ciema_listview"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/title_cinema"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/red"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="成都"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="14dp"
+            android:background="@drawable/ui" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="影院"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_search" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/ciema_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title_cinema" />
+
+        <LinearLayout
+            android:id="@+id/title_gone"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_below="@id/title_cinema"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/xi_lie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/quyu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center"
+                    android:text="区域"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/a4k" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/gao_wan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center"
+                    android:text="离我最近"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/a4k" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pai_xu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center"
+                    android:text="品牌"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/a4k" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fuwu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center"
+                    android:text="特效/服务"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/a4k" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
